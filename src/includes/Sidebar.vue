@@ -29,20 +29,22 @@
 
 
 <script lang="ts">
-import { Component, Vue } from 'vue-property-decorator';
 
-export default class Sidebar extends Vue {
+import Vue , { VNode } from "vue"
+//import { Component, Vue } from 'vue-property-decorator';
+
+export default Vue.extend({
     data(){
         return {
-            current: undefined,
+           current: undefined
+        }
+    },
+
+    methods: {
+        setCurrent(item: any){
+            this.current = (this.current == item) ? undefined : item ;
         }
     }
 
-    methods() {
-        /*setCurrent: function(item) {
-            this.current = (this.current == item) ? undefined : item ;
-        }*/
-    }
-
-}
+})
 </script>

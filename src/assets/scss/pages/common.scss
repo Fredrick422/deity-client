@@ -9,7 +9,6 @@ File: scss
 /*============================================================== 
  For all pages 
  ============================================================== */
-
 #main-wrapper { 
     width: 100%;
     overflow: hidden;
@@ -1009,4 +1008,15 @@ c3 chart global
     background-size: cover;
     background-position: center center;
     min-height:340px;
+}
+
+/*******************
+    Gradiant
+*******************/
+.linear-gradiant{
+    background-color: $themecolor;
+    -webkit-background-image: $theme-linear-gradiant;
+    -moz-background-image: $theme-linear-gradiant;
+    -o-background-image: $theme-linear-gradiant;
+    background-image: $theme-linear-gradiant;
 }

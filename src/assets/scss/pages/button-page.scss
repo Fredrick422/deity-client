@@ -13,6 +13,7 @@ Buttons
 .btn {
     padding: 7px 12px;
     cursor: pointer;
+    font-weight: 700 !important;
     &:hover{
         opacity: 0.8; 
     }
@@ -92,7 +93,7 @@ Buttons
 }
 
 .btn-rounded {
-    border-radius: 60px;
+    border-radius: 60px !important;
     padding: 7px 18px;
 
     &.btn-lg {
@@ -116,27 +117,30 @@ Buttons
 .btn-secondary.disabled {
     box-shadow: $default-shadow;
     transition: 0.2s ease-in;
-    background-color: $white;
-    color: $bodytext;
-    border-color:$secondary;
+    //background-color: $white;
+    color: $bodytext !important;
+    //border-color:$secondary;
+    cursor: default;
     &:hover {
-        box-shadow: $default-shadow-hover;
-        color: $white!important;
+        opacity: .65 !important;
+        //box-shadow: $default-shadow-hover;
+        //color: $white!important;
     }
     &.active,
     &:active,
     &:focus {
         box-shadow: $default-shadow-hover;
-        color: $white!important;
+        color: $white;
         background: $dark;
         border-color: $dark;
     }
 }
 .btn-secondary.disabled{
     &:hover, &:focus, &:active{
-        color:$bodytext!important;
-        background-color: $white; 
-        border-color:$secondary;
+        //color:$bodytext!important;
+        //background-color: $white; 
+        //border-color:$secondary;
+        opacity: .65 !important;
         cursor:default;
     }
 }
@@ -315,25 +319,28 @@ Buttons
 }
 
 .btn-outline-primary {
-    color: $primary;
-    background-color: $white;
-    border-color: $primary;
+    color: $white !important;
+    /*background-color: $white !important;*/
+    border-color: $white !important;
     /*box-shadow: $primary-shadow;*/
+    border: solid 2px $white !important;
     transition: 0.2s ease-in;
     &:hover,
     &:focus,
     &.focus {
-        background: $primary;
+        background: $white !important;
         /*box-shadow: $primary-shadow-hover;*/
-        color: $white;
-        border-color: $primary;
+        color: $themecolor !important;
+        border-color: $white !important;
+        opacity: 1 !important;
     }
     &.active,
     &:active,
     &:focus {
         /*box-shadow: $primary-shadow-hover;*/
-        background-color: $primary-dark;
-        border-color: $primary-dark;
+        background-color: $white !important;
+        border-color: $white !important;
+        color: $themecolor !important;
     }
 }
 

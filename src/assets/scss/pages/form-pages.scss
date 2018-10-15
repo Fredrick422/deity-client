@@ -28,11 +28,22 @@ textarea {
 /*******************
 Form-control
 ******************/
-
+.form-group{
+    .form-text{
+        color: $white !important;
+        opacity: 0.4;
+    }
+}
 .form-control {
-    color: $bodytext;
+    color: $white !important;
     min-height: 38px;
     display: initial;
+    font-weight: 700;
+    &::placeholder {
+        color: $white-alt !important;
+        opacity: 1;
+        font-weight: 400;
+    }
 }
 
 .form-control-sm {
@@ -242,14 +253,20 @@ Form Material page
     background-repeat: no-repeat;
     background-size: 0 2px, 100% 1px;
     padding: 0;
+    border-bottom: 2px solid $white;
     transition: background 0s ease-out 0s;
 }
 
 .form-material .form-control,
 .form-material .form-control.focus,
 .form-material .form-control:focus {
-    background-image: linear-gradient($themecolor, $themecolor), linear-gradient($border, $border);
-    border: 0 none;
+    /*background-image: linear-gradient($themecolor, $themecolor), linear-gradient($border, $border);*/
+    //background: transparent;
+    background-color: transparent;
+    border-top: 0 none;
+    border-left: 0 none;
+    border-right: 0 none;
+    border-bottom-width: 2px;
     border-radius: 0;
     box-shadow: none;
     float: none;
@@ -260,6 +277,7 @@ Form Material page
     background-size: 100% 2px, 100% 1px;
     outline: 0 none;
     transition-duration: 0.3s;
+    border-bottom: 2px solid $white-alt;
 }
 
 .form-control-line .form-group {
@@ -270,9 +288,9 @@ Form Material page
     border: 0px;
     border-radius: 0px;
     padding-left: 0px;
-    border-bottom: 1px solid #f6f9ff;
+    border-bottom: 2px solid $white;
     &:focus {
-        border-bottom: 1px solid $themecolor;
+        border-bottom: 2px solid $white-alt;
     }
 }
 

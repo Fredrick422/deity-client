@@ -1,23 +1,31 @@
 <template>
   <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
+    <div v-if="auth.state === true">
+      <app-header></app-header>
+      <app-sidebar></app-sidebar>
+      <div class="page-wrapper">
+        <div class="container-fluid">
+          <router-view/>
+        </div>
+      </div>
+      <app-footer></app-footer>
     </div>
-    <router-view/>
+    <app-login v-else></app-login>
   </div>
 </template>
 
 <script lang="ts">
-import { Component, Vue } from 'vue-property-decorator';
+//import { Component, Vue } from 'vue-property-decorator';
+import Vue from "vue"
+import {mapState} from 'vuex'
 
 // @ is an alias to /src
-import Sidebar from '@/components/includes/Sidebar.vue';
-import Header from '@/components/includes/Header.vue';
-import Footer from '@/components/includes/Footer.vue';
-import Login from '@/components/includes/Login.vue';
+import Sidebar from '@/includes/Sidebar.vue';
+import Header from '@/includes/Header.vue';
+import Footer from '@/includes/Footer.vue';
+import Login from '@/includes/Login.vue';
 
-export default class App extends Vue {
+export default Vue.extend({
   data() {
     return {
     };
@@ -27,8 +35,14 @@ export default class App extends Vue {
     'app-sidebar': Sidebar,
     'app-header': Header,
     'app-footer' : Footer,
-    'app-login' : Login,
+    'app-login': Login,
   },
-  
-};
+
+  computed: {
+      ...mapState('auth',[
+        'auth'
+      ]),
+  }
+ 
+});
 </script>

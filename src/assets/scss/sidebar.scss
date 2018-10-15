@@ -99,6 +99,7 @@ sidebar navigation
                 &.active,
                 &:hover {
                     color: $themecolor;
+                    text-decoration: none;
                     i {
                         color: $themecolor;
                     }
@@ -106,6 +107,7 @@ sidebar navigation
                 &.active {
                     font-weight: 500;
                     color: $dark;
+                    text-decoration: none;
                 }
 
                 span{
@@ -286,7 +288,7 @@ When click on sidebar toggler and also for tablet
         }
         .sidebar-nav #sidebarnav > li:hover > a {
             width: 290px;
-            background: $sidebar-alt;
+            background: $sidebar-alt !important;
             .hide-menu {
                 display: inline;
             }

@@ -9,18 +9,63 @@ File: scss
 /*******************
 Login register and recover password Page
 ******************/
+html, body, body>div{
+  height: 100%;
+}
 .login-register{
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center center;
   height:100%;
   width: 100%;
-  padding:10% 0;  
   position:fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  overflow-y: auto;
+  .login-register-container{
+    position: relative;
+    top: 50%;
+    -webkit-transform: translateY(-50%);
+    -moz-transform: translateY(-50%);
+    -o-transform: translateY(-50%);
+    transform: translateY(-50%);
+    -webkit-transition: all 1s linear; 
+    -moz-transition: all 1s linear; 
+    -o-transition: all 1s linear; 
+    transition: all 1s linear; 
+    &.loaded{
+      top: 40px;
+      -webkit-transform: translateY(0%);
+      -moz-transform: translateY(0%);
+      -o-transform: translateY(0%);
+      transform: translateY(0%);
+    }
+  }
 }
 .login-box{
-  width:400px;
   margin:0 auto;
+  display: none;
+  &.in{
+      display: block;
+      -webkit-animation-duration: 1500ms;
+      animation-duration: 1500ms;
+      /*-webkit-animation-delay: 1s;
+      animation-delay: 1s;*/
+      -webkit-animation-fill-mode: both;
+      animation-fill-mode: both;
+      animation-name: LoginBoxIn;
+  }
+
+  .form-control {
+    text-align: center !important
+  }
+
+  .info-text{
+    color: $white;
+    opacity: 0.5;
+  }
   
   .footer{
     width:100%;
@@ -35,15 +80,15 @@ Login register and recover password Page
 #recoverform{
    display:none; 
 }
-.login-sidebar {
-    padding: 0px;
-    
-    margin-top: 0px;
-    .login-box{
-        right: 0px;
-        position: absolute;
-        height: 100%;
-    }
-    
+
+@keyframes LoginBoxIn {
+  from {
+    opacity: 0;
+    transform: scale3d(0.3, 0.3, 0.3);
+  }
+
+  50% {
+    opacity: 1;
+  }
 }
 

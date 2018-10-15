@@ -9,9 +9,10 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from 'vue-property-decorator';
+import Vue from 'vue'
+//import { Component, Vue } from 'vue-property-decorator';
 
-export default class Footer extends Vue {
+export default Vue.extend({
 
-}
+})
 </script>

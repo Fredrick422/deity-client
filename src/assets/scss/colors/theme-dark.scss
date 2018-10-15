@@ -6,9 +6,9 @@ File: scss
 */
 
 @import '../variable';
-$themecolor: #7460ee;
-$themecolor-dark: #028ee1;
-$topbar: #7460ee;
+$themecolor: $themecolor;
+$themecolor-dark: $themecolor-dark;
+$topbar: $dark;
 $sidebar:#242a33;
 $sidebar-text: #687384;
 $sidebar-icons: #424a56;
@@ -60,15 +60,11 @@ $topbar-alt: #272c33;
     }
 }
 
-.hdr-nav-bar .navbar .navbar-nav>li.active>a{
-    border-color: $themecolor;
-}
+
 /*******************
 /*General Elements
 *******************/
-.lstick{
-    background: $themecolor;
-}
+
 a {
     color: $themecolor;
 }

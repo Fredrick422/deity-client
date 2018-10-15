@@ -1,5 +1,5 @@
 {
-  "name": "Deity Academy Client App",
+  "name": "deityacademyclient",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -19,10 +19,12 @@
     "vue-class-component": "^6.0.0",
     "vue-property-decorator": "^7.0.0",
     "vue-router": "^3.0.1",
+    "vue-the-mask": "^0.11.1",
     "vuex": "^3.0.1",
     "vuex-router-sync": "^5.0.0"
   },
   "devDependencies": {
+    "@babel/core": "^7.0.0-beta.47",
     "@babel/polyfill": "^7.0.0-beta.53",
     "@types/chai": "^4.1.0",
     "@types/mocha": "^5.2.4",

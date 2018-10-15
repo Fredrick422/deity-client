@@ -282,35 +282,28 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from 'vue-property-decorator';
+import Vue from 'vue'
+//import { Component, Vue } from 'vue-property-decorator';
 
-export default class Header extends Vue {
+export default Vue.extend({
    data(){
        return {
-            show: undefined,
-            miniSidebar: false
+            show: '',
+            miniSidebar: false,
        }
-   }
-
-   computed() : {
-        toggleClass : function(){
-            return {
-                show: (this.show != undefined) ? true : false
-            }
-        },
-
-   }
+   },
 
    watch: {
-       miniSidebar(){
+       miniSidebar: function() : any {
 
             var body = document.getElementsByTagName("BODY")[0]
 
             if(this.miniSidebar == false){
-                var sidebar = document.getElementById('leftSidebar')
-                console.log(sidebar.classList)
-                sidebar.classList.add('expanding')
-                setTimeout(function(){ sidebar.classList.remove('expanding') }, 300);
+                const sidebar = document.getElementById('leftSidebar')
+                if (sidebar) {
+                    sidebar.classList.add('expanding')
+                    setTimeout(function(){ sidebar.classList.remove('expanding') }, 300);
+                }
             }
 
             return (this.miniSidebar) ? 
@@ -318,14 +311,12 @@ export default class Header extends Vue {
                 body.classList.remove('mini-sidebar');
                 
         },
-   }
+   },
 
    methods : {
-        showClass : function(id){
-            console.log(id)
-            this.show = (this.show ==  id) ? undefined : id; 
-            return
-        }
-   }
-};
+        showClass(id: any) {
+            return this.show = (this.show ==  id) ? undefined : id; 
+        },
+   },
+});
 </script>
