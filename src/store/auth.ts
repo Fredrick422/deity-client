@@ -6,6 +6,10 @@ export default {
     state:{
         auth: {
             state: null,
+            token: null,
+            user: {
+                role: null,
+            }
         },
         input:{
             phone: null,
@@ -17,7 +21,6 @@ export default {
         disabled: {
             pin: false
         },
-        token: null,
         valid: {
             pin: null,
             phone: null
@@ -44,79 +47,12 @@ export default {
     },
 
     actions:{
-        onContinue({state}){
-            //Submit phone to server
-            return HTTP().post('auth/code', {
-                phone: state.input.phone
-            }).then((res) => {
-                state.valid.phone = null
-                if (res.data.status === 'SUCCESS') {
-                    state.auth.state = 'pending'
-                    state.input.phone = res.data.phone
-                    state.token = res.data.token
-                    state.retry.retry_in = res.data.retry_in
-
-                    return
-                }
-
-                if (res.data.status === 'ERROR') {
-                    let errormessage = res.data.message.replace(/_/g, " ")
-                    state.auth.state = 'failed'
-                    state.input.phone = res.data.phone
-                    state.error.title = res.data.status.toLowerCase()
-                    state.error.message = errormessage.toLowerCase()
-
-                    return
-                }
-
-                return
-
-            }).catch((err) => {
-                state.valid.phone = false
-                if (err.response.status == 404 || err.response.status == 401) {
-                    state.feedback.phone = err.response.data.error
-                    return
-                }
-                state.feedback.phone = err.response.data[0].message
-                return
-            })
+        onContinue({commit}){
+            commit('sendCode')
         },
 
-        onResend({state}){
-            return HTTP().post('auth/code', {
-                phone: state.input.phone
-            }).then((res) => {
-                state.valid.phone = null
-                if (res.data.status === 'SUCCESS') {
-                    state.auth.state = 'pending'
-                    state.input.phone = res.data.phone
-                    state.token = res.data.token
-                    state.retry.retry_in = res.data.retry_in
-
-                    return
-                }
-
-                if (res.data.status === 'ERROR') {
-                    let errormessage = res.data.message.replace(/_/g, " ")
-                    state.auth.state = 'failed'
-                    state.input.phone = res.data.phone
-                    state.error.title = res.data.status.toLowerCase()
-                    state.error.message = errormessage.toLowerCase()
-
-                    return
-                }
-
-                return
-
-            }).catch((err) => {
-                state.valid.phone = false
-                if (err.response.status == 404 || err.response.status == 401) {
-                    state.feedback.phone = err.response.data.error
-                    return
-                }
-                state.feedback.phone = err.response.data[0].message
-                return
-            })
+        onResend({commit}){
+            commit('sendCode')
         }
     },
 
@@ -154,25 +90,24 @@ export default {
             }, 1000);
             
         },
-        setPin(state: any, pin: any){
+        async setPin(state, pin: any){
             let authpin = pin.replace(/\s/g, "").length 
             if (authpin == 4) {
 
                 state.input.pin = pin 
                 state.readonly.pin = true
 
-                return HTTP().post('auth/verify', {
+                return await HTTP().post('auth/verify', {
                     phone: state.input.phone,
                     code: state.input.pin,
-                    token: state.token
+                    token: state.auth.token
                 }).then((res) => {
                     state.valid.pin = null
                     state.verify.sent = true
-                    if (res.data.success === true) { 
-                        state.auth.state = true
+                    if (res.data.success === true) {
+                        state.auth.state = 'logged'
+                        state.input.pin = null
                         state.auth.token = res.data.token.token
-                        console.log(state.auth)
-                        return
                     }
 
                     if (res.data.status === 'ERROR') {
@@ -180,11 +115,7 @@ export default {
 
                         let errormessage = res.data.message.replace(/_/g, " ")
                         state.feedback.pin = errormessage.toLowerCase()
-
-                        return
                     }
-
-                    return
 
                 }).catch((err) => {
                     state.valid.pin = false
@@ -193,21 +124,52 @@ export default {
 
                     if (err.response.status == 500) {
                         state.feedback.pin = 'Request failed'
-                        return
                     }
                     
                     if (err.response.status == 404 || err.response.status == 401 || err.response.status == 400) {
                         if (typeof err.response.data.error === 'undefined') {
                             state.feedback.pin = err.response.data.message
-                            return 
+                            return
                         }
+
                         state.feedback.pin = err.response.data.error
+
                         return
                     }
                     state.feedback.pin = err.response.data[0].message
                     return
                 })
             }
+        },
+
+        async sendCode(state: any){
+            //Submit phone to server
+            return await HTTP().post('auth/code', {
+                phone: state.input.phone
+            }).then((res) => {
+                if (res.data.status === 'SUCCESS') {
+                    state.auth.state = 'pending'
+                    state.auth.token = res.data.token
+                    state.retry.retry_in = res.data.retry_in
+                }
+
+                if (res.data.status === 'ERROR') {
+                    let errormessage = res.data.message.replace(/_/g, " ")
+                    state.auth.state = 'failed'
+                    state.error.title = res.data.status.toLowerCase()
+                    state.error.message = errormessage.toLowerCase()
+
+                }
+
+            }).catch((err) => {
+                state.valid.phone = false
+                if (err.response.status == 404 || err.response.status == 401) {
+                    state.feedback.phone = err.response.data.error
+                }else{
+                    state.feedback.phone = err.response.data[0].message
+                }
+            })
+
         }
-    }
+    },
 }

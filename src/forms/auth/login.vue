@@ -9,7 +9,7 @@
           <b-form-input id="phoneInput"
                         type="tel"
                         v-mask="'+254(7##)##-####'"
-                        v-model.trim="input.phone"
+                        v-bind:value="input.phone"
                         @input="setPhone"
                         :state="valid.phone"
                         required
@@ -33,7 +33,7 @@
                         v-mask="'####'"
                         v-bind:readonly="(readonly.pin)? true:false"
                         v-bind:disabled="(disabled.pin)? true:false"
-                        v-model.trim="input.pin"
+                        v-bind:value="input.pin"
                         @input="setPin"
                         :state="valid.pin"
                         required>
@@ -42,7 +42,7 @@
         </b-form-group>
       </b-form>
       <span v-if="retry.retry" class="text-center text-light">{{retry.text}}</span>
-      <b-button v-else @click="onResend"  class="btn-outline-primary btn-rounded btn-block mt-5"> Retry </b-button>
+      <b-button v-else @click="onResend"  class="btn-outline-primary btn-rounded btn-block mt-5"> Resend Code </b-button>
     </div>
     <div v-if="auth.state === 'failed'">
       <app-erroricon v-on:countdown="setRetry" class="mb-3"></app-erroricon>

@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <div v-if="auth.state === true">
+    <div v-if="auth.state == 'logged'">
       <app-header></app-header>
       <app-sidebar></app-sidebar>
       <div class="page-wrapper">

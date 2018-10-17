@@ -1,6 +1,9 @@
 import Vue from 'vue';
 import Router from 'vue-router';
 import Home from './views/Home.vue';
+import calendar from './views/calendar/main.vue';
+
+const title = process.env.VUE_APP_TITLE
 
 Vue.use(Router);
 
@@ -12,14 +15,35 @@ export default new Router({
       path: '/',
       name: 'home',
       component: Home,
+      meta: {
+        title: title,
+        tags: [{
+          name: 'description',
+          content: 'The home page of our example app.'
+        },
+        {
+          property: 'og:description',
+          content: 'The home page of our example app.'
+        }
+        ]
+      }
     },
     {
-      path: '/about',
-      name: 'about',
-      // route level code-splitting
-      // this generates a separate chunk (about.[hash].js) for this route
-      // which is lazy-loaded when the route is visited.
-      component: () => import(/* webpackChunkName: "about" */ './views/About.vue'),
+      path: '/calendar',
+      name: 'calender',
+      component: calendar,
+      meta: {
+        title: 'Calendar | ' + title,
+          tags: [{
+            name: 'description',
+            content: 'The home page of our example app.'
+          },
+          {
+            property: 'og:description',
+            content: 'The home page of our example app.'
+          }
+        ]
+      }
     },
   ],
 });

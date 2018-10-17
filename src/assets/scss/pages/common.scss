@@ -34,6 +34,10 @@ File: scss
     background: $bodycolor;
     padding-bottom: 60px;
     position: relative;
+    -webkit-transition: width .5s; /* Safari */
+      -moz-transition: width .5s; /* Safari */
+        -o-transition: width .5s; /* Safari */
+          transition: width .5s;
 }
 
 .container-fluid {
